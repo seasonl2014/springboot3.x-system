@@ -1,9 +1,10 @@
 package cn.xueden.config;
 
-import cn.xueden.utils.HutoolJWTUtil;
+
+import cn.xueden.utils.JWTUtil;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +13,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Field;
-import java.util.Optional;
 
 /**实现自定义listener
  * 其中有两个核心的接口 @PrePersist 和 @PreUpdate
@@ -98,24 +98,24 @@ public class CustomAuditingListener {
         // 获取登录用户ID
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String token = (String) request.getHeader("userToken");
-        String memberToken = (String) request.getHeader("memberToken");
+        String memberToken = (String) request.getHeader("studentToken");
         if(null==token&&null==memberToken){
             return 1L;
         } else if (null==token&&null!=memberToken&&memberToken.trim().length()>0) {
-            Long memberID = HutoolJWTUtil.parseToken(memberToken);
-            return memberID;
+            DecodedJWT decodedJWT = JWTUtil.verify(memberToken);
+            return Long.parseLong(decodedJWT.getClaim("id").asString());
         } else if (StringUtils.isNotBlank(token)&&StringUtils.isBlank(memberToken)){
-            Long userID = HutoolJWTUtil.parseToken(token);
-            return userID;
+            DecodedJWT decodedJWT = JWTUtil.verify(token);
+            return Long.parseLong(decodedJWT.getClaim("id").asString());
         } else if (StringUtils.isNotBlank(token)&&null!=memberToken&&memberToken.trim().length()>0) {
             String uri = request.getRequestURI();
             // 说明是前台访问路径
             if(uri.indexOf("hotel")!=-1){
-                Long memberID = HutoolJWTUtil.parseToken(memberToken);
-                return memberID;
+                DecodedJWT decodedJWT = JWTUtil.verify(token);
+                return Long.parseLong(decodedJWT.getClaim("id").asString());
             }else {
-                Long userID = HutoolJWTUtil.parseToken(token);
-                return userID;
+                DecodedJWT decodedJWT = JWTUtil.verify(token);
+                return Long.parseLong(decodedJWT.getClaim("id").asString());
             }
         }
         return 1L;
