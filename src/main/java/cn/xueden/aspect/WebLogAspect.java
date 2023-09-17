@@ -1,13 +1,9 @@
 package cn.xueden.aspect;
 
 
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import cn.xueden.annotation.EnableSysLog;
 import cn.xueden.exception.GlobalExceptionHandler;
-
 import cn.xueden.system.domain.SysLog;
-
 import cn.xueden.system.repository.SysLogRepository;
 import cn.xueden.utils.IpInfo;
 import cn.xueden.utils.XuedenUtil;
@@ -15,7 +11,6 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -23,7 +18,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -83,10 +77,10 @@ public class WebLogAspect {
                 args[i] = o.toString();
             }
         }
-        String str = JSONUtil.toJsonStr(args);
+        /*String str = JSONUtil.toJsonStr(args);
 
         sysLog.setParams(str.length()>5000? JSONUtil.toJsonStr("请求参数数据过长不与显示"):str);
-
+*/
         String ip = XuedenUtil.getClientIp(request);
         if("0.0.0.0".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip) || "localhost".equals(ip) || "127.0.0.1".equals(ip)){
             ip = "127.0.0.1";
@@ -130,8 +124,8 @@ public class WebLogAspect {
      */
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) {
-        String retString = JSONUtil.toJsonStr(ret);
-        sysLog.setResponse(retString.length()>5000? JSONUtil.toJsonStr("请求参数数据过长不与显示"):retString);
+/*        String retString = JSONUtil.toJsonStr(ret);
+        sysLog.setResponse(retString.length()>5000? JSONUtil.toJsonStr("请求参数数据过长不与显示"):retString);*/
         sysLog.setUseTime(System.currentTimeMillis() - startTime.get());
         logRepository.save(sysLog);
     }
