@@ -27,9 +27,9 @@ spring:
         smtp:
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
-# 用户头像存放路径
-user:
-  icon: E:\\student-mangement-system\\
+# 本地图像存放路径
+img:
+  url: E:\\student-mangement-system\\
 
 # ip2region
 ip2region:

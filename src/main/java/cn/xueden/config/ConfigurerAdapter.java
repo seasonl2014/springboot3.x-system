@@ -15,8 +15,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class ConfigurerAdapter implements WebMvcConfigurer {
 
-    @Value("${user.icon}")
-    private String userIcon;
+    @Value("${img.url}")
+    private String imgUrl;
 
     /**
      * 配置跨域
@@ -44,7 +44,7 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-       String pathUrl = "file:"+userIcon.replace("\\","/");
+       String pathUrl = "file:"+imgUrl.replace("\\","/");
        registry.addResourceHandler("/uploadFile/**").addResourceLocations(pathUrl).setCachePeriod(0);
     }
 }

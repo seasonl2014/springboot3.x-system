@@ -39,7 +39,7 @@ import java.util.Map;
 @RequestMapping("user")
 public class UserController {
 
-    @Value("${user.icon}")
+    @Value("${img.url}")
     private String userIcon;
 
     /**
