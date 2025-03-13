@@ -7,12 +7,12 @@ cn\xueden\system\controller\LogController.class
 cn\xueden\annotation\EnableXuedenQuery$Join.class
 cn\xueden\utils\QueryHelp.class
 cn\xueden\utils\XuedenUtil.class
-cn\xueden\utils\HutoolJWTUtil.class
 cn\xueden\system\service\dto\SysLogQueryCriteria.class
 cn\xueden\email\MailService.class
 cn\xueden\system\repository\SysLogRepository.class
 cn\xueden\config\ConfigurerAdapter.class
 cn\xueden\system\service\impl\SysUserServiceImpl.class
+cn\xueden\utils\JWTUtil.class
 cn\xueden\aspect\WebLogAspect.class
 cn\xueden\system\service\ISysUserService.class
 cn\xueden\utils\Md5Util.class

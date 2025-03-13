@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: MyNewPass5!
-    url: jdbc:mysql://192.168.0.40:3306/springboot_system?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: xueden
+    password: xueden-123456
+    url: jdbc:mysql://192.168.0.88:3306/springboot_system?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
     hikari:
       minimum-idle: 10 # ????????
       maximum-pool-size: 10 # ????????????10
